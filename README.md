@@ -1,4 +1,12 @@
-# [Introduction](01-introduction.md)
+# Abstract  
+*When Identity Meets Cryptography* is an open-source exploration of the intricate relationship between digital identity systems and cryptographic primitives in the cloud era. As organizations increasingly migrate to distributed, scalable infrastructures, the challenge of securely managing identities—while preserving privacy and mitigating risks—has never been more urgent. This book bridges theory and practice, offering a comprehensive guide to architecting robust identity solutions that leverage cutting-edge cryptography.  
+
+Through real-world case studies, hands-on examples, and a practitioner's narrative from the trench of Cloud computing, the text demystifies the art of integrating cryptographic primitives such as key management, symmetric and asymmetric encryption, sign, verify, digital signature etc. into identity frameworks. Readers will learn to navigate trade-offs between usability, scalability, and security, while addressing critical challenges like credential theft, data sovereignty, and regulatory compliance.  
+
+Key themes include the evolution of identity systems intertwined with cryptography systems, in cloud scale decentralized ecosystems, and the future of incorporating AI/LLM into identity services. Written for developers, architects, and security professionals, the book emphasizes open standards and community-driven innovation, inviting readers to contribute to its living content.  
+
+*When Identity Meets Cryptography* is not just a technical manual—it is a call to reimagine trust in a hyperconnected world, empowering practitioners to build systems that are as resilient as they are revolutionary.
+# [My Identity/Cryptography Journey](01-introduction.md)
 
 # The Evolution of Identity Management in Computing
 
