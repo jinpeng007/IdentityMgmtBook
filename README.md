@@ -1,5 +1,4 @@
-# Overview
-Over the course of more than two decades, I have dedicated my professional career to the development and implementation of identity and cryptography-related services. This book serves as a repository for my accumulated knowledge and a means of contributing back to the community in the most effective manner possible.
+# [Introduction](01=introduction.md)
 
 # The Evolution of Identity Management in Computing
 
