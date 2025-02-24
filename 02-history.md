@@ -1,5 +1,13 @@
 The history of identity management in computing is a fascinating journey that mirrors the evolution of computer systems themselves - from centralized mainframes to distributed cloud services. This article explores how authentication and authorization mechanisms have evolved to meet changing security needs and technological capabilities.
 
+## Multics - The First Multi-User Computing 
+Multics, short for Multiplexed Information and Computing Service, was a collaborative project developed by MIT, Bell Labs, and General Electric in the 1960s. The project was initiated in 1965 and ran until 1969, when Bell Labs withdrew from the project due to financial and logistical challenges. The core development team of Multics included Fernando J. Corbató (MIT), Jack B. Dennis (MIT), and Robert F. Daley (Bell Labs), who are considered the key figures behind its creation. Corbató, credited as the father of time-sharing, played a pivotal role in leading the project and laying its fundamental principles. Dennis focused on developing the system's architecture and file system, while Daley contributed significantly to the implementation of the system's operating system.
+Multics was an ambitious project aimed at creating a sophisticated multi-user operating system designed for shared access, security, and advanced features. Although it ultimately faced significant challenges, its influence on the development of future multi-user systems, including Unix, is undeniable.
+
+For authentication, Multics required users to enter a unique username and a password, which were stored securely within the system. This combination of username and password served as a verification mechanism, ensuring that only authorized individuals could access the system and its resources. The implementation of user authentication in Multics was a significant advancement in computer security, setting a precedent for future multi-user systems.
+The concept of passwords, while widely used today, was a relatively new idea in the 1960s. Multics's implementation of password-based authentication marked a critical shift towards establishing secure access controls in a multi-user environment.
+
+
 ## The Mainframe Era (1960s-1970s)
 
 In the early days of computing, identity management was relatively straightforward due to the centralized nature of mainframe systems. IBM's Multiple Virtual Storage (MVS) operating system introduced one of the first comprehensive security systems, Resource Access Control Facility (RACF), in 1976. RACF implemented fundamental concepts that are still relevant today:
