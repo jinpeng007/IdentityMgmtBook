@@ -35,6 +35,89 @@ Unix brought significant innovations to identity management, introducing concept
 
 As networks grew and Unix systems became interconnected, new challenges emerged. Network Information Service (NIS, originally called Yellow Pages) was developed by Sun Microsystems to provide centralized authentication across Unix networks, though it had significant security limitations.
 
+### 1. Password Management & Authentication
+#### 1970s Foundations
+- /etc/passwd Structure:  
+  - Stored user credentials in a colon-separated format:  
+    `username:encrypted_password:UID:GID:GECOS:home_dir:shell`
+  - Initial Weakness: Early versions stored passwords in plaintext until Version 3 Unix (1973) introduced one-way encryption using a modified DES algorithm.
+  - Security Flaw: The file was world-readable, exposing password hashes to offline attacks.
+
+#### Authentication Workflow
+1. User entered username/password at login (via `getty` or `login`).
+2. System encrypted the input password with a 12-bit "salt" (random value).
+3. Compared the hash to the entry in `/etc/passwd`.
+4. On match: Launched a shell with the user's UID/GID.
+
+#### 1980s Improvements
+- Shadow Passwords:  
+  - Introduced later (post-1980s) to separate hashed passwords into `/etc/shadow`, accessible only by root.
+  - Mitigated hash exposure but wasn't widely adopted until the 1990s.
+
+---
+
+### 2. Access Control Model
+#### Unix File Permissions (DAC)
+- Three-tiered Permissions:  
+  ```bash
+  -rwxr-xr--  user:group  others
+  ```
+  - User/Group/Others: Read (`r`), Write (`w`), Execute (`x`) bits.
+  - Group Inheritance: Users inherited group memberships via `/etc/group`.
+  
+- Special Flags:  
+  - Setuid/Setgid: Allow executables to run with owner/group privileges (e.g., `passwd` command).
+  - Sticky Bit: Prevent non-owners from deleting files in shared directories (e.g., `/tmp`).
+
+#### Resource Abstraction
+- "Everything is a File":  
+  - Devices, sockets, and processes were represented as files, extending the same permission model to non-file resources.
+  - Example: `/dev/tty` (terminal) had permissions enforced via UID/GID.
+
+#### Limitations
+- Granularity: No role-based access control (RBAC) or fine-grained permissions.
+- Root Dominance: The superuser (`UID 0`) bypassed all permissions, creating a single point of failure.
+
+---
+
+### 3. Networked Identity (1980s)
+#### NIS (Network Information Service)
+- Centralized Authentication:  
+  - Enabled sharing of `/etc/passwd`, `/etc/group`, and other files across Unix networks.
+  - Security Issues: Transmitted password hashes in clear text, vulnerable to sniffing.
+- Client-Server Model:  
+  - Clients queried NIS servers for user/group data, but trust was implicit (no encryption).
+
+#### Trusted Hosts
+- `.rhosts` and `/etc/hosts.equiv`:  
+  - Allowed password-less login between "trusted" hosts based on IP/hostname.
+  - Major security risk due to IP spoofing and lack of encryption.
+
+---
+
+### 4. Audit Logs
+#### 1970s Logging
+- Basic Tracking:  
+  - Login attempts logged to `/var/log/wtmp` (binary format) via `syslog`.
+  - Commands logged via `acct` (process accounting), but lacked user context.
+  
+#### 1980s Enhancements
+- Syslog (1980):  
+  - Centralized logging daemon (`syslogd`) standardized message formats.
+  - Separated logs by facility (e.g., `auth`, `kern`) and severity (e.g., `debug`, `emerg`).
+- Limitations:  
+  - No tamper-proofing: Logs could be modified by root.
+  - Limited forensic value due to sparse metadata.
+
+---
+
+### Legacy & Limitations
+- DAC Weaknesses: Over-reliance on user discretion (e.g., misconfigured `chmod 777`).
+- Root Exploits: Privilege escalation attacks targeted `setuid` binaries and `/etc/passwd`.
+- Audit Gaps: Logs lacked cryptographic integrity checks until later advancements (e.g., `auditd`).
+
+This era laid the groundwork for modern identity systems, with later innovations (SELinux, PAM, LDAP) building on these early concepts while addressing their shortcomings.
+
 ## Enterprise Identity Management (1980s-1990s)
 
 The growth of enterprise networks drove the development of more sophisticated identity management solutions:
