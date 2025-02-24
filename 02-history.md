@@ -261,6 +261,10 @@ These technologies had a lasting impact. SAML became a bedrock for enterprise SS
 
 In essence, the 2000s marked a turning point where identity management became not just a matter of internal efficiency but a strategic enabler of global connectivity. SAML and XACML laid the groundwork for the cloud-based, federated systems that followed, proving that the Web Era was as much about redefining security as it was about expanding digital possibilities. Their legacy endures in the seamless, secure experiences users expect from the internet today.
 
+Below are examples of OAuth 2.0 and OpenID Connect (OIDC) workflows, illustrated with a practical scenario to demonstrate how they function in real-world applications. These examples focus on the most common flows—OAuth 2.0’s Authorization Code Flow and OIDC’s Authentication Flow—and include simplified conceptual steps rather than full technical implementations (which would involve HTTP requests, tokens, and server-side logic).
+
+---
+
 ## The Cloud and Mobile Era (2010s-Present)
 
 
@@ -271,6 +275,163 @@ The 2010s marked the beginning of the Cloud and Mobile Era, a transformative per
 The explosion of cloud-based services and APIs in the 2010s demanded a new approach to authorization and authentication. OAuth 2.0, finalized in 2012, emerged as a token-based authorization framework tailored for this environment. Unlike earlier systems that tightly coupled authentication and authorization, OAuth 2.0 separated these functions, allowing users to grant third-party applications limited access to their resources (e.g., "let this app post to my social media") without sharing credentials. Its flexibility—supporting various client types (web, mobile, IoT) and flows (authorization code, implicit)—made it ideal for the diverse ecosystems of the cloud era.
 
 Building on OAuth 2.0, OpenID Connect (introduced in 2014) added a lightweight authentication layer. It provided a standardized way to verify user identity using JSON Web Tokens (JWTs), integrating seamlessly with mobile-friendly protocols. Together, OAuth 2.0 and OpenID Connect enabled secure, scalable access to cloud services like Google Drive or Microsoft 365, supporting SSO across platforms while accommodating the mobility and variety of modern devices. These standards became the backbone of identity management for cloud-native applications, balancing usability with security.
+
+#### Scenario: Accessing a Cloud Service
+
+Imagine a user, Bob, who works at "TechCorp" and wants to use a cloud-based file storage service, "FileHub," from his mobile device. TechCorp uses its own identity system (e.g., an internal SSO portal), and FileHub supports OAuth 2.0 and OIDC for secure access. Bob wants to log in and access his files without creating a separate FileHub account.
+
+---
+
+#### OAuth 2.0: Authorization Code Flow Example
+
+The Authorization Code Flow is widely used for server-side applications and provides a secure way to obtain an access token for API access. Here’s how it works in Bob’s case:
+
+1. **Initiation**:
+   - Bob opens the FileHub mobile app and selects “Sign in with TechCorp.”
+   - FileHub redirects Bob’s app to TechCorp’s authorization server with a request like:
+     ```
+     GET https://auth.techcorp.com/authorize?
+         client_id=filehub_app&
+         redirect_uri=https://filehub.com/callback&
+         response_type=code&
+         scope=read_files&
+         state=xyz123
+     ```
+     - `client_id`: Identifies FileHub as the requesting app.
+     - `redirect_uri`: Where TechCorp will send Bob back.
+     - `scope`: Specifies Bob is granting FileHub permission to read his files.
+     - `state`: A random value to prevent CSRF attacks.
+
+2. **User Authentication**:
+   - TechCorp’s authorization server prompts Bob to log in with his TechCorp credentials (e.g., username and password).
+   - Bob authenticates successfully, and TechCorp asks him to approve FileHub’s request to access his files.
+
+3. **Authorization Code Issued**:
+   - Bob approves, and TechCorp redirects him back to FileHub with an authorization code:
+     ```
+     https://filehub.com/callback?code=abc123&state=xyz123
+     ```
+   - FileHub verifies the `state` matches its original request.
+
+4. **Token Exchange**:
+   - FileHub’s server sends the code to TechCorp’s token endpoint behind the scenes:
+     ```
+     POST https://auth.techcorp.com/token
+     client_id=filehub_app&
+     client_secret=secret123&
+     grant_type=authorization_code&
+     code=abc123&
+     redirect_uri=https://filehub.com/callback
+     ```
+   - TechCorp validates the request and responds with an access token:
+     ```json
+     {
+         "access_token": "token789",
+         "token_type": "Bearer",
+         "expires_in": 3600
+     }
+     ```
+
+5. **Access Granted**:
+   - FileHub uses the `access_token` to call TechCorp’s API on Bob’s behalf:
+     ```
+     GET https://api.techcorp.com/files
+     Authorization: Bearer token789
+     ```
+   - The API returns Bob’s file list, and FileHub displays it in the app.
+
+**Outcome**: Bob authorizes FileHub to access his files without sharing his TechCorp password. The access token limits FileHub to the “read_files” scope, ensuring controlled access.
+
+---
+
+#### OpenID Connect: Authentication Flow Example
+
+OIDC extends OAuth 2.0 to provide authentication, delivering user identity information via an ID token. Here’s how Bob logs into FileHub using OIDC:
+
+1. **Initiation**:
+   - Bob opens FileHub and selects “Sign in with TechCorp.”
+   - FileHub redirects Bob to TechCorp’s OIDC server with a request:
+     ```
+     GET https://auth.techcorp.com/openid/authorize?
+         client_id=filehub_app&
+         redirect_uri=https://filehub.com/callback&
+         response_type=code&
+         scope=openid profile email&
+         state=xyz456
+     ```
+     - `scope=openid`: Indicates OIDC authentication is requested.
+     - `scope=profile email`: Requests additional user info (name, email).
+
+2. **User Authentication**:
+   - TechCorp’s server prompts Bob to log in with his credentials.
+   - After Bob authenticates, TechCorp shows a consent screen: “FileHub wants your name and email.”
+
+3. **Authorization Code Issued**:
+   - Bob consents, and TechCorp redirects him back to FileHub with a code:
+     ```
+     https://filehub.com/callback?code=def456&state=xyz456
+     ```
+
+4. **Token Exchange**:
+   - FileHub exchanges the code for tokens at TechCorp’s token endpoint:
+     ```
+     POST https://auth.techcorp.com/openid/token
+     client_id=filehub_app&
+     client_secret=secret123&
+     grant_type=authorization_code&
+     code=def456&
+     redirect_uri=https://filehub.com/callback
+     ```
+   - TechCorp responds with an access token and an ID token:
+     ```json
+     {
+         "access_token": "token456",
+         "id_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+         "token_type": "Bearer",
+         "expires_in": 3600
+     }
+     ```
+   - The `id_token` (a JWT) contains Bob’s identity:
+     ```json
+     {
+         "sub": "bob123",
+         "name": "Bob Smith",
+         "email": "bob@techcorp.com",
+         "iss": "https://auth.techcorp.com",
+         "aud": "filehub_app"
+     }
+     ```
+
+5. **Identity Verified**:
+   - FileHub verifies the `id_token`’s signature and issuer, confirming Bob’s identity.
+   - FileHub logs Bob in, displaying “Welcome, Bob Smith,” and uses the `access_token` to fetch his files if needed.
+
+**Outcome**: Bob logs into FileHub with his TechCorp identity. The ID token proves who he is, while the access token (optional in this flow) enables further API access, blending authentication and authorization seamlessly.
+
+---
+
+#### Key Differences in the Workflows
+
+- **OAuth 2.0 (Authorization Code Flow)**:
+  - Focus: Authorizing FileHub to access Bob’s files (authorization).
+  - Delivers: Access token for API use.
+  - Use Case: Granting third-party apps limited permissions without caring about “who” the user is beyond basic access rights.
+
+- **OpenID Connect (Authentication Flow)**:
+  - Focus: Authenticating Bob and identifying him to FileHub (authentication).
+  - Delivers: ID token for identity, plus an optional access token.
+  - Use Case: Logging Bob into FileHub with his TechCorp credentials, providing a personalized experience.
+
+---
+
+#### How They Work Together
+
+In practice, FileHub might use both:
+- **OIDC** authenticates Bob and retrieves his name and email for the login experience.
+- **OAuth 2.0** provides an access token to fetch his files from TechCorp’s API.
+
+For example, after Bob logs in via OIDC, FileHub might display his files by using the access token to call an API, combining identity and resource access in a single workflow. This synergy is common in modern cloud and mobile apps, making OAuth 2.0 and OIDC a powerful duo for the Cloud and Mobile Era.
+
 
 ### Multi-Factor Authentication (MFA): Layered Security
 
