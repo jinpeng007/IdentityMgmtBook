@@ -1,25 +1,30 @@
-The history of identity management in computing is a fascinating journey that mirrors the evolution of computer systems themselves - from centralized mainframes to distributed cloud services. This article explores how authentication and authorization mechanisms have evolved to meet changing security needs and technological capabilities.
+The history of identity management in computing is like a rollercoaster ride that’s been going on since the dawn of computers. It all started with simple single-user systems that didn’t need any fancy identity management. Then, things got more complex with centralized mainframes that could handle multiple users. Next came the rise of single-user desktops and multi-user Unix systems, each with its own unique identity management system. And finally, we have the distributed cloud services that use identity management to keep everything secure and organized. In this chapter, we’ll take a look at how identity management has evolved over time to meet the changing security needs and technological capabilities of computers. We’ll also highlight the important role of cryptography primitives in these systems.
 
-## Multics - The First Multi-User Computing 
-Multics, short for Multiplexed Information and Computing Service, was a collaborative project developed by MIT, Bell Labs, and General Electric in the 1960s. The project was initiated in 1965 and ran until 1969, when Bell Labs withdrew from the project due to financial and logistical challenges. The core development team of Multics included Fernando J. Corbató (MIT), Jack B. Dennis (MIT), and Robert F. Daley (Bell Labs), who are considered the key figures behind its creation. Corbató, credited as the father of time-sharing, played a pivotal role in leading the project and laying its fundamental principles. Dennis focused on developing the system's architecture and file system, while Daley contributed significantly to the implementation of the system's operating system.
-Multics was an ambitious project aimed at creating a sophisticated multi-user operating system designed for shared access, security, and advanced features. Although it ultimately faced significant challenges, its influence on the development of future multi-user systems, including Unix, is undeniable.
+## Identity in Early Day Multi-User Computing
+Back in the 1950s, computers were like super-heavy machines that only a few fancy government agencies or big institutions could afford. To make them work faster, they came up with this thing called batching processing. Basically, they’d give the computers a bunch of tasks at once and run them in a line. And guess what? There wasn’t really a concept of a ‘user’ back then. All tasks were treated the same, no matter who did them.
+  
+In the 1960s, time-sharing systems were born. The idea was that multiple users could run tasks at the same time on a shared computer. The computer would divide up time slots for each task. The user who used their allocated time slots would be temporarily removed from the system to let other tasks run. So, time-sharing systems were naturally multi-user systems. Multics, short for Multiplexed Information and Computing Service, was probably the first multi-user computer system with special modules for managing user identities. Multics was a collaborative project that MIT, Bell Labs, and General Electric worked on in the 1960s. Multics was a big project aimed at creating a super-smart multi-user operating system that would let users share access, keep things secure, and have advanced features. Even though it faced a lot of challenges, its impact on the development of future multi-user systems, like Unix, is huge.
 
-For authentication, Multics required users to enter a unique username and a password, which were stored securely within the system. This combination of username and password served as a verification mechanism, ensuring that only authorized individuals could access the system and its resources. The implementation of user authentication in Multics was a significant advancement in computer security, setting a precedent for future multi-user systems.
-The concept of passwords, while widely used today, was a relatively new idea in the 1960s. Multics's implementation of password-based authentication marked a critical shift towards establishing secure access controls in a multi-user environment.
+In Multics, users had to enter a unique username and a password to log in. These were stored safely in the system. This combination of username and password was like a secret code that only the right people could use to access the system and its stuff. Multics was a big step forward in computer security, and it showed how to keep multi-user systems safe. But how exactly did they keep the passwords safe? It’s hard to find the details. It’s probably that they were encrypted or hashed in some way, but it might as well be stored in plaintext. Passwords were a new idea in the 1960s, so Multics’s way of using them was a big deal in making sure that only the right people could access the system.
 
 
-## The Mainframe Era (1960s-1970s)
+## Identity in The Mainframe Era (1960s-1970s)
 
-In the early days of computing, identity management was relatively straightforward due to the centralized nature of mainframe systems. IBM's Multiple Virtual Storage (MVS) operating system introduced one of the first comprehensive security systems, Resource Access Control Facility (RACF), in 1976. RACF implemented fundamental concepts that are still relevant today:
+Back in the early days of computing, things were pretty simple when it came to identity management. Mainframe systems were all centralized, so it was easy to keep track of who was who and what they could do. IBM’s Multiple Virtual Storage (MVS) operating system introduced one of the first really comprehensive security systems, called the Resource Access Control Facility (RACF), back in 1976. RACF had some pretty cool ideas that are still relevant today:
 
-- User identification and authentication through usernames and passwords
-- Access control lists (ACLs) for resources
-- Privilege separation and administrative roles
-- Audit logging of security-relevant events
+- It used usernames and passwords to identify people and make sure they could only access things they were supposed to.
+- It had lists of who could access what resources, like files and folders.
+- It separated people’s roles and gave them different levels of access.
+- It kept track of everything that happened with security, so people could see who did what and why.
 
-The mainframe era established core principles of identity management that would influence future developments: identification, authentication, authorization, and accountability.
+The mainframe era set the foundation for identity management that we still use today. We have things like user identification, authentication, authorization, and accountability.
 
-## The Rise of Unix and Distributed Systems (1970s-1980s)
+Back in the early days of IBM mainframes, password management was a bit simpler than it is now. Passwords were often stored in plain text, right in the system’s operating system. This was because computers were super slow and didn’t have much storage space back then. So, anyone who had access to the system could see the passwords. But hey, they also had to physically access the mainframe, which was usually kept in a secure place. This helped keep people out and made it harder for someone to steal the passwords.
+
+Since computers didn’t have super strong encryption back then, security mostly relied on keeping the mainframe safe and trusting the people who had access to it. They used access control lists (ACLs) to decide who could do what. These early systems didn’t have the fancy security stuff we have now, like hashing and salting, which protect passwords by making them harder to guess. And they didn’t have centralized password management systems, so each application or system had its own set of user accounts and passwords.
+As technology advanced, IBM mainframes got smarter about keeping passwords safe. They started using encryption, which turned passwords into secret codes before storing them. And guess what? They also made security software even better, with stronger encryption and more ways to control who can access the system. Back in the day, mainframe password management was mostly about keeping things physical and using simple security measures. But now, thanks to all this tech, these systems are super secure and can’t be easily hacked.
+
+## Identity in Unix and Distributed Systems (1970s-1980s)
 
 Unix brought significant innovations to identity management, introducing concepts that remain fundamental to modern systems:
 
