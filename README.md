@@ -7,10 +7,9 @@ Key themes include the evolution of identity systems intertwined with cryptograp
 
 *When Identity Meets Cryptography* is not just a technical manual—it is a call to reimagine trust in a hyperconnected world, empowering practitioners to build systems that are as resilient as they are revolutionary.
 # [My Identity Journey](01-introduction.md)
-# [The Evolution of Identity Management in Computing] (02-history.md)
+# [The Evolution of Identity Management in Computing](02-history.md)
 
 # Identity: User, Device, Serivce and Workload
-# Understanding Different Types of Digital Identities: Users, Devices, Services, and Workloads
 
 In modern computing environments, identity management extends far beyond human users. Different types of identities - users, devices, services, and workloads - each have unique characteristics, lifecycles, and authentication methods. Understanding these differences is crucial for implementing effective security policies and access controls.
 
