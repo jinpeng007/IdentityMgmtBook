@@ -1,9 +1,9 @@
 # Where Identity Meets Cryptography  
 *Where Identity Meets Cryptography* is an open-source exploration of the intricate relationship between digital identity systems and cryptographic primitives in the cloud era. As organizations increasingly migrate to distributed, scalable infrastructures, the challenge of securely managing identities and the infrastructures they go through, making decisions on 
-**who you are, 
-**how to validate you are who you are, 
-**what you can access and what you cannot, 
-**and finally tracking what you have done 
+1. who you are, 
+2. proof of you are who you claim to be, 
+3. what you can access and what you cannot, 
+4. and finally tracking what you have done 
 while preserving privacy and mitigating risks—has never been more urgent. This book bridges theory and practice, offering a pragmatic and opinionated guide to architecting robust and scalable identity solutions that leverage robust, battle-hardened cryptography primitives.  
 
 Through real-world case studies, hands-on examples, and a practitioner's narrative from the trench of Cloud computing, the text demystifies the art of integrating cryptographic primitives such as key management, symmetric and asymmetric encryption, sign, verify, digital signature etc. into identity frameworks. Readers will learn to navigate trade-offs between usability, scalability, and security, while addressing critical challenges like credential theft, data sovereignty, and regulatory compliance.  
