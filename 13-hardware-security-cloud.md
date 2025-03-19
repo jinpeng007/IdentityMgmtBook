@@ -105,20 +105,12 @@ Secure key management is essential for protecting sensitive data in the cloud. E
 
 ### 3.1 AWS Key Management Service (KMS)
 
-AWS KMS provides a managed service for creating and controlling cryptographic keys:
+AWS KMS offers a hierarchical system with customer master keys (CMKs) protected by HSMs, supporting three key sources: default mode (multi-tenant FIPS 140-3 Level 3 HSMs by AWS), CloudHSM mode (single-tenant FIPS 140-2 Level 3 HSMs), and ExternalHSM (customer-owned on-premises HSMs). It’s optimized for AWS integration, with high security and scalability, but costs can escalate with usage and it may lack flexibility for custom needs.
 
-**AWS CloudHSM Integration:** Hardware security modules (HSMs) that are:
-- FIPS 140-2 Level 3 validated
-- Tamper-evident
-- Dedicated to single tenants (not shared)
-
-**Nitro-Based Key Protection:**
-- Keys stored in Nitro Security Modules (NSMs)
-- Hardware-enforced isolation
-- Automatic key rotation capabilities
-- Integration with AWS services
-
-AWS KMS offers a hierarchical key management system where customer master keys (CMKs) are protected by hardware security modules, providing a high level of assurance for key material protection.
+AWS KMS offers three key sources:
+	•	Default mode: Backed by multi-tenant FIPS 140-3 Level 3 HSMs developed by AWS, providing a managed service for creating and controlling cryptographic keys with hardware-enforced isolation, automatic key rotation capabilities, and seamless integration with AWS services.
+	•	CloudHSM mode: Utilizes single-tenant FIPS 140-2 Level 3 HSMs (hsm1.medium type) from third-party vendors, hosted by AWS, which are tamper-evident and dedicated to individual customers. Note that the newer hsm2m.medium, certified under FIPS 140-3 Level 3, is not yet supported for AWS KMS CloudHSM key stores as of the latest documentation, as per Migrating from hsm1.medium to hsm2m.medium - AWS CloudHSM | AWS Documentation.
+	•	External HSM: Allows customers to use their own HSMs running on-premises, giving them total ownership and lifecycle control over their cryptographic keys.
 
 ### 3.2 Google Cloud Key Management Service
 
